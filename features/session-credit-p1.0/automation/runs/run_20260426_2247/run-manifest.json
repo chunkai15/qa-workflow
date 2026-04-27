@@ -1,0 +1,33 @@
+{
+  "feature_file": "features/session-credit-p1.0/automation/input/session-credit-p1.0.feature",
+  "staging_url": "https://staging.everfit.io/login",
+  "auth_config": {
+    "app": {
+      "mode": "cookie",
+      "role": "coach",
+      "login_url": "https://staging.everfit.io/login"
+    },
+    "browser": {
+      "type": "basic",
+      "user": "everfit",
+      "pass": "<set-at-runtime>"
+    }
+  },
+  "runtime_input_mapping": {
+    "BASIC_AUTH_USER": "everfit",
+    "BASIC_AUTH_PASS": "<set-at-runtime>",
+    "TEST_EMAIL": "<set-at-runtime>",
+    "TEST_PASSWORD": "<set-at-runtime>"
+  },
+  "artifact_paths": {
+    "run_root": "features/session-credit-p1.0/automation/runs/run_20260426_2247/",
+    "context_bundle_json": "features/session-credit-p1.0/automation/runs/run_20260426_2247/context-bundle.json",
+    "context_bundle_md": "features/session-credit-p1.0/automation/runs/run_20260426_2247/context-bundle.md",
+    "generation_plan_json": "features/session-credit-p1.0/automation/runs/run_20260426_2247/generation-plan.json",
+    "generated_suite": "features/session-credit-p1.0/automation/runs/run_20260426_2247/generated/",
+    "validation_report": "features/session-credit-p1.0/automation/runs/run_20260426_2247/generated/validation-report.md",
+    "execution_report": "features/session-credit-p1.0/automation/runs/run_20260426_2247/generated/execution-report.md"
+  },
+  "status": "READY_FOR_CONTEXT",
+  "next_step": "Step 2: Context"
+}

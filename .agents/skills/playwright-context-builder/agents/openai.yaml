@@ -1,0 +1,4 @@
+interface:
+  display_name: "Playwright Context Builder"
+  short_description: "Build Stage 1 context bundles"
+  default_prompt: "Use $playwright-context-builder to build a context bundle from this feature file and target app."

@@ -1,0 +1,52 @@
+{
+  "approved": true,
+  "suite_root": "features/session-credit-p1.0/automation/runs/run_20260426_2247/generated/",
+  "required_success_oracles": [
+    {
+      "scenario": "Coach creates a Session Type that requires credit",
+      "oracle": "Visibility of session type in list with credit icon"
+    },
+    {
+      "scenario": "Coach issues session credits",
+      "oracle": "Balance increment and 'Issued' event in history"
+    },
+    {
+      "scenario": "Coach deletes credits",
+      "oracle": "Balance decrement and 'Deleted' event in history"
+    },
+    {
+      "scenario": "Coach books session",
+      "oracle": "Balance decrement and 'Used' event in history"
+    },
+    {
+      "scenario": "Coach cancels session",
+      "oracle": "Balance refund (Early) or Forfeit (Late)"
+    },
+    {
+      "scenario": "Archive warning",
+      "oracle": "Modal visibility with specific warning text"
+    }
+  ],
+  "validation_expectations": {
+    "static_analysis": true,
+    "selector_verification": true,
+    "semantic_coverage": true,
+    "classification_required": true
+  },
+  "execution_targets": [
+    {
+      "target": "tests/session-credits.spec.ts",
+      "description": "Full end-to-end credit lifecycle"
+    }
+  ],
+  "repair_policy": "bounded_local_fix",
+  "needs_human_review": [
+    "Archive warning text verification",
+    "Kebab menu targeting logic"
+  ],
+  "generation_expectations": {
+    "preserve_bdd_comments": true,
+    "readiness_checks": "Wait for skeleton loaders and 'Getting data ready' overlays to clear",
+    "low_confidence_notes": "Include comments for kebab menu and '-' button visibility"
+  }
+}

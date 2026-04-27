@@ -1,0 +1,4 @@
+interface:
+  display_name: "Playwright Test Builder"
+  short_description: "Build Stage 2 Playwright suites"
+  default_prompt: "Use $playwright-test-builder to generate a Playwright suite from this context bundle."

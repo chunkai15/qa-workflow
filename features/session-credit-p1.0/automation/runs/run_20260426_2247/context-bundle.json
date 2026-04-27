@@ -1,0 +1,229 @@
+{
+  "meta": {
+    "feature_name": "Session Credits P1.0",
+    "feature_path": "features/session-credit-p1.0/automation/input/session-credit-p1.0.feature",
+    "staging_url": "https://staging.everfit.io/login",
+    "capture_date": "2026-04-26T22:55:00Z"
+  },
+  "page_inventory": [
+    {
+      "page_id": "login_page",
+      "route": "/login",
+      "description": "Everfit Login Page"
+    },
+    {
+      "page_id": "session_types_page",
+      "route": "/home/booking/session-types",
+      "description": "Session Types management under Booking"
+    },
+    {
+      "page_id": "client_list_page",
+      "route": "/home/client",
+      "description": "Main clients list"
+    },
+    {
+      "page_id": "client_credits_tab",
+      "route": "/home/client/:id/sessions/credits",
+      "description": "Credits sub-tab within Sessions tab of a client profile"
+    },
+    {
+      "page_id": "client_training_tab",
+      "route": "/home/client/:id/training",
+      "description": "Training tab (client calendar)"
+    },
+    {
+      "page_id": "calendar_page",
+      "route": "/home/booking/calendar",
+      "description": "Main Booking Calendar"
+    }
+  ],
+  "locator_map": [
+    {
+      "element_id": "add_session_type_btn",
+      "page_route": "/home/booking/session-types",
+      "semantic_role": "button",
+      "primary_selector": "button:has-text(\"Add New Session Type\")",
+      "confidence": "high",
+      "selector_reason": "Clear text-based match on primary action button"
+    },
+    {
+      "element_id": "session_type_name_input",
+      "page_route": "/home/booking/session-types",
+      "semantic_role": "textbox",
+      "primary_selector": "input#session-type-name",
+      "confidence": "high",
+      "selector_reason": "Stable ID for name input"
+    },
+    {
+      "element_id": "require_credit_toggle",
+      "page_route": "/home/booking/session-types",
+      "semantic_role": "checkbox",
+      "primary_selector": "input[type=\"checkbox\"]",
+      "confidence": "medium",
+      "selector_reason": "Found inside toggle div, may need parent context if multiple checkboxes exist"
+    },
+    {
+      "element_id": "create_session_type_btn",
+      "page_route": "/home/booking/session-types",
+      "semantic_role": "button",
+      "primary_selector": "button:has-text(\"Create\")",
+      "confidence": "high",
+      "selector_reason": "Standard modal submit button"
+    },
+    {
+      "element_id": "client_row",
+      "page_route": "/home/client",
+      "semantic_role": "link",
+      "primary_selector": "a[href*='/home/client/']",
+      "confidence": "medium",
+      "selector_reason": "Dynamic ID in href, needs name filter for specific client"
+    },
+    {
+      "element_id": "sessions_tab",
+      "page_route": "/home/client/:id",
+      "semantic_role": "tab",
+      "primary_selector": "a.client-menu-item:has-text(\"Sessions\")",
+      "confidence": "high",
+      "selector_reason": "Class and text match"
+    },
+    {
+      "element_id": "credits_sub_tab",
+      "page_route": "/home/client/:id/sessions",
+      "semantic_role": "tab",
+      "primary_selector": "div:has-text(\"Credits\")",
+      "confidence": "medium",
+      "selector_reason": "Text match on sub-tab"
+    },
+    {
+      "element_id": "issue_credits_btn",
+      "page_route": "/home/client/:id/sessions/credits",
+      "semantic_role": "button",
+      "primary_selector": "button:has-text(\"Issue Credits\")",
+      "confidence": "high",
+      "selector_reason": "Primary action on credits page"
+    },
+    {
+      "element_id": "session_type_dropdown",
+      "page_route": "modal:issue_credits",
+      "semantic_role": "combobox",
+      "primary_selector": ".ui.dropdown",
+      "confidence": "medium",
+      "selector_reason": "Semantic UI dropdown class"
+    },
+    {
+      "element_id": "credit_amount_input",
+      "page_route": "modal:issue_credits",
+      "semantic_role": "spinbutton",
+      "primary_selector": "input[type='number']",
+      "fallback_selectors": ["input"],
+      "confidence": "medium",
+      "selector_reason": "Nearby 'Amount to issue' label"
+    },
+    {
+      "element_id": "confirm_issue_btn",
+      "page_route": "modal:issue_credits",
+      "semantic_role": "button",
+      "primary_selector": "button:has-text(\"Issue Credits\")",
+      "confidence": "high",
+      "selector_reason": "Explicit button text in modal"
+    },
+    {
+      "element_id": "deduct_credits_btn",
+      "page_route": "/home/client/:id/sessions/credits",
+      "semantic_role": "button",
+      "primary_selector": "button.sc-dJMscs.kaXxiM:has(i.minus)",
+      "fallback_selectors": ["button:has(i.minus)"],
+      "confidence": "medium",
+      "selector_reason": "Button with minus icon next to balance"
+    },
+    {
+      "element_id": "session_type_kebab_menu",
+      "page_route": "/home/booking/session-types",
+      "semantic_role": "button",
+      "primary_selector": "div.sc-gAmSnp",
+      "confidence": "low",
+      "selector_reason": "Styled div for three-dot menu, likely needs index or row context"
+    },
+    {
+      "element_id": "archive_option",
+      "page_route": "dropdown:session_type_actions",
+      "semantic_role": "menuitem",
+      "primary_selector": "span:text(\"Archive\")",
+      "confidence": "medium",
+      "selector_reason": "Text match in action menu"
+    },
+    {
+      "element_id": "archived_tab",
+      "page_route": "/home/booking/session-types",
+      "semantic_role": "tab",
+      "primary_selector": "button:text(\"Archived\")",
+      "confidence": "high",
+      "selector_reason": "Explicit tab text"
+    },
+    {
+      "element_id": "history_session_type_filter",
+      "page_route": "/home/client/:id/sessions/credits",
+      "semantic_role": "combobox",
+      "primary_selector": "div:has(> span:text(\"Session Type\"))",
+      "confidence": "medium",
+      "selector_reason": "Container with label text"
+    },
+    {
+      "element_id": "history_event_filter",
+      "page_route": "/home/client/:id/sessions/credits",
+      "semantic_role": "combobox",
+      "primary_selector": "div:has(> span:text(\"Event\"))",
+      "confidence": "medium",
+      "selector_reason": "Container with label text"
+    }
+  ],
+  "interaction_patterns": [
+    {
+      "pattern_id": "navigation_to_credits",
+      "steps": [
+        "Navigate to /home/client",
+        "Search and click on a connected client",
+        "Click Sessions tab",
+        "Click Credits sub-tab"
+      ],
+      "wait_for": "Balance row and Issue Credits button visible"
+    },
+    {
+      "pattern_id": "loading_state_handling",
+      "steps": [
+        "Detect skeleton loaders or 'Getting your data ready' overlay",
+        "Wait for overlay to disappear before next action"
+      ]
+    }
+  ],
+  "coverage_gaps": [
+    {
+      "gap_type": "requires_runtime_verification",
+      "description": "Verification of 'Archive Session Type?' warning message when credits exist",
+      "impact": "Cannot confirm specific warning text without data setup"
+    },
+    {
+      "gap_type": "weak_selector_only",
+      "description": "Session Type kebab menu uses generated class names",
+      "impact": "May be brittle if class names change; needs row-based targeting"
+    }
+  ],
+  "critical_outcomes": [
+    {
+      "scenario_name": "Coach creates a Session Type that requires credit",
+      "step_text": "Then the new session type should be visible in the list with a check icon in the \"Session credit\" column",
+      "status": "requires_runtime_verification",
+      "oracle_type": "visual_signal",
+      "observed_signal": "Check icon in 'Session credit' column for matching name",
+      "confidence": "high"
+    },
+    {
+      "scenario_name": "Coach issues session credits to a connected client",
+      "step_text": "Then the \"available credits\" balance should increase by the issued quantity",
+      "status": "requires_runtime_verification",
+      "oracle_type": "data_value",
+      "observed_signal": "Text value in balance section updates",
+      "confidence": "high"
+    }
+  ]
+}

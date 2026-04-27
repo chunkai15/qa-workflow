@@ -1,0 +1,78 @@
+feature_id: marketplace-test
+title: Marketplace Login And Package Publish
+slug: marketplace-test
+status: analyzing
+priority: high
+domain: marketplace
+product_area: coach-marketplace
+
+owners:
+  qa: Admin
+  automation: Admin
+  ba: unknown
+  engineering: unknown
+
+tags:
+  - marketplace
+  - login
+  - package-publish
+  - web
+
+summary: >
+  Login to the staging marketplace experience as a coach, navigate to marketplace
+  packages, create a new package, and publish it successfully.
+
+source_model: hybrid
+
+source_of_truth:
+  confluence: []
+  jira: []
+  figma: []
+  other:
+    - automation/runs/2026-04-12_legacy-001/run-manifest.json
+    - automation/runs/2026-04-12_legacy-001/generated/validation-report.md
+
+working_set:
+  feature_root: features/marketplace-test
+  docs_root: features/marketplace-test/docs
+  qa_root: features/marketplace-test/qa
+  automation_root: features/marketplace-test/automation
+  assets_root: features/marketplace-test/assets
+
+entry_docs:
+  technical_solution: docs/04-technical-solution/legacy-workflow-mapping.md
+  qa_analysis: qa/01-analysis/feature-analysis.md
+  test_cases: qa/02-test-cases/test-cases.md
+
+automation:
+  feature_files:
+    - automation/input/marketplace-test.feature
+  plans: []
+  latest_run: automation/runs/2026-04-12_legacy-001
+  auth_mode: env-or-runtime
+  status: migrated-legacy-run
+
+coverage:
+  business_rules_reviewed: false
+  qa_analysis_ready: false
+  test_cases_ready: false
+  automation_context_ready: true
+  generation_ready: true
+  validation_ready: true
+
+dependencies:
+  related_features: []
+  external_systems:
+    - basic-auth-gateway
+    - coach-authentication
+    - marketplace-packages
+
+open_questions:
+  - Which external doc should become the canonical product spec for this flow?
+  - Should upload fixtures be moved into the repo to reduce environment caveats?
+  - Should future runs migrate fully from `output/marketplace-test` into `automation/runs/`?
+
+notes:
+  - The legacy root feature file contains runtime credentials and should not be reused directly in new automation assets.
+  - Prefer feature-local docs and placeholder-based automation inputs for future work.
+  - The historical run was migrated from the removed legacy output layout into `automation/runs/2026-04-12_legacy-001`.

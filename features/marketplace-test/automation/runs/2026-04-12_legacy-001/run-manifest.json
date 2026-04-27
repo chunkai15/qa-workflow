@@ -1,0 +1,102 @@
+{
+  "status": "USABLE_WITH_CAVEATS",
+  "step": "Step 5 - Validate",
+  "feature_file": "features\\marketplace-test\\automation\\input\\marketplace-test.feature",
+  "feature_name": "Marketplace Login and navigate to package",
+  "target_environment": {
+    "base_url": "https://landing-stg.everfit.io",
+    "start_url": "https://landing-stg.everfit.io/pro/login",
+    "start_path": "/pro/login"
+  },
+  "auth_config": {
+    "browser_basic_auth": {
+      "enabled": true,
+      "user_env": "BASIC_AUTH_USER",
+      "pass_env": "BASIC_AUTH_PASS",
+      "runtime_values_available_from_feature": true
+    },
+    "app_login": {
+      "enabled": true,
+      "email_env": "TEST_EMAIL",
+      "pass_env": "TEST_PASSWORD",
+      "role_hint": "coach",
+      "runtime_values_available_from_feature": true
+    }
+  },
+  "runtime_inputs": {
+    "upload_dir_env": "MARKETPLACE_UPLOAD_DIR",
+    "upload_dir_available_from_feature": true,
+    "upload_dir_value_masked": "D:\\Local Disk (E)\\Tester\\Images Fitness"
+  },
+  "artifact_paths": {
+    "run_root": "features\\marketplace-test\\automation\\runs\\2026-04-12_legacy-001",
+    "readme": "features\\marketplace-test\\automation\\runs\\2026-04-12_legacy-001\\README.md",
+    "env_example": "features\\marketplace-test\\automation\\runs\\2026-04-12_legacy-001\\.env.example",
+    "context_bundle_json": "features\\marketplace-test\\automation\\runs\\2026-04-12_legacy-001\\context-bundle.json",
+    "context_bundle_md": "features\\marketplace-test\\automation\\runs\\2026-04-12_legacy-001\\context-bundle.md",
+    "generation_plan_json": "features\\marketplace-test\\automation\\runs\\2026-04-12_legacy-001\\generation-plan.json",
+    "generated_root": "features\\marketplace-test\\automation\\runs\\2026-04-12_legacy-001\\generated",
+    "validation_report": "features\\marketplace-test\\automation\\runs\\2026-04-12_legacy-001\\generated\\validation-report.md",
+    "execution_report_md": "features\\marketplace-test\\automation\\runs\\2026-04-12_legacy-001\\generated\\execution-report.md",
+    "execution_report_json": "features\\marketplace-test\\automation\\runs\\2026-04-12_legacy-001\\generated\\execution-report.json"
+  },
+  "validation_scope": [
+    "static_analysis",
+    "selector_verification",
+    "semantic_coverage"
+  ],
+  "secret_policy": {
+    "feature_is_source_of_truth_for_intent": true,
+    "raw_secrets_persisted": false,
+    "runtime_only_credentials_allowed": true
+  },
+  "scenarios": [
+    "Marketplace Login success to preview page",
+    "Create and publish a new package from marketplace packages page"
+  ],
+  "next_worker": {
+    "name": "none",
+    "step": "Workflow complete",
+    "inputs": {
+      "context_bundle_json": "features\\marketplace-test\\automation\\runs\\2026-04-12_legacy-001\\context-bundle.json",
+      "context_bundle_md": "features\\marketplace-test\\automation\\runs\\2026-04-12_legacy-001\\context-bundle.md"
+    }
+  },
+  "stage_1_summary": {
+    "pages_covered": 4,
+    "locator_entries": 18,
+    "low_confidence_selectors": 2,
+    "coverage_gaps": 3,
+    "stage_2_started": true
+  },
+  "stage_3_plan": {
+    "approved": true,
+    "generation_scope": [
+      "pages/BasePage.ts",
+      "pages/*Page.ts",
+      "fixtures/index.ts",
+      "tests/*.spec.ts",
+      "generated/validation-report.md"
+    ],
+    "validation_expectations": [
+      "static_analysis",
+      "selector_verification",
+      "semantic_coverage"
+    ],
+    "needs_human_review": [
+      "final publish success signal",
+      "generic hero image edit button selector"
+    ]
+  },
+  "stage_4_generation": {
+    "suite_root": "features\\marketplace-test\\automation\\runs\\2026-04-12_legacy-001\\generated",
+    "generated_files": 10
+  },
+  "stage_5_validation": {
+    "static_analysis": "passed",
+    "selector_verification": "passed_with_notes",
+    "semantic_coverage": "partial",
+    "login_spec": "passed",
+    "create_package_spec": "passed"
+  }
+}

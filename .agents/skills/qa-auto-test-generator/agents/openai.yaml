@@ -1,0 +1,4 @@
+interface:
+  display_name: "QA Auto Test Generator"
+  short_description: "Orchestrate feature-to-Playwright workflows"
+  default_prompt: "Use $qa-auto-test-generator to turn this feature file into a planned, generated, and validated Playwright automation workflow."

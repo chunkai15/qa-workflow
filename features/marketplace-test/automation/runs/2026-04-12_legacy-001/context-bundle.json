@@ -1,0 +1,658 @@
+{
+  "meta": {
+    "feature_file": "input/marketplace-test.feature",
+    "feature_name": "Marketplace Login and navigate to package",
+    "created_at": "2026-04-09T15:34:30+07:00",
+    "staging_base_url": "https://landing-stg.everfit.io",
+    "start_path": "/pro/login",
+    "auth": {
+      "browser_basic_auth": {
+        "enabled": true,
+        "user_env": "BASIC_AUTH_USER",
+        "pass_env": "BASIC_AUTH_PASS"
+      },
+      "app_login": {
+        "enabled": true,
+        "email_env": "TEST_EMAIL",
+        "pass_env": "TEST_PASSWORD",
+        "role_hint": "coach"
+      }
+    },
+    "runtime_secrets_policy": "env_only"
+  },
+  "page_inventory": [
+    {
+      "page_id": "login_page",
+      "page_route": "/pro/login",
+      "page_type": "login",
+      "inspection_meta": {
+        "framework": "Next.js/React",
+        "has_dynamic_ids": true,
+        "has_iframes": true,
+        "has_shadow_dom": false,
+        "has_file_upload": false,
+        "has_rich_text_editor": false,
+        "has_disabled_critical_actions": true,
+        "has_captcha": false
+      },
+      "notable_elements": [
+        "email textbox",
+        "password textbox",
+        "login button",
+        "continue with google button"
+      ],
+      "warnings": [
+        "Login button is disabled until both credentials are entered.",
+        "Intercom iframe is present on the page."
+      ]
+    },
+    {
+      "page_id": "preview_page",
+      "page_route": "/pro/preview",
+      "page_type": "dashboard_preview",
+      "inspection_meta": {
+        "framework": "Next.js/React",
+        "has_dynamic_ids": true,
+        "has_iframes": true,
+        "has_shadow_dom": false,
+        "has_file_upload": false,
+        "has_rich_text_editor": false,
+        "has_disabled_critical_actions": false,
+        "has_captcha": false
+      },
+      "notable_elements": [
+        "navigation sidebar",
+        "package sidebar entry",
+        "public profile heading",
+        "publish changes button"
+      ],
+      "warnings": [
+        "Sidebar package navigation is icon-only in the captured snapshot and lacks a stable accessible name.",
+        "Stripe and Intercom iframes are present but not part of the intended interaction surface."
+      ]
+    },
+    {
+      "page_id": "packages_list_page",
+      "page_route": "/pro/marketplace-packages",
+      "page_type": "packages_list",
+      "inspection_meta": {
+        "framework": "Next.js/React",
+        "has_dynamic_ids": true,
+        "has_iframes": true,
+        "has_shadow_dom": false,
+        "has_file_upload": false,
+        "has_rich_text_editor": false,
+        "has_disabled_critical_actions": false,
+        "has_captcha": false
+      },
+      "notable_elements": [
+        "packages heading",
+        "create package button",
+        "packages table",
+        "search package name textbox",
+        "create new package popup"
+      ],
+      "warnings": [
+        "Packages table contents are highly dynamic.",
+        "Popup trigger is stable, but resulting package names are random by design."
+      ]
+    },
+    {
+      "page_id": "package_create_page",
+      "page_route": "/pro/marketplace-packages/create",
+      "page_type": "package_editor",
+      "inspection_meta": {
+        "framework": "Next.js/React",
+        "has_dynamic_ids": true,
+        "has_iframes": true,
+        "has_shadow_dom": false,
+        "has_file_upload": true,
+        "has_rich_text_editor": true,
+        "has_disabled_critical_actions": false,
+        "has_captcha": false
+      },
+      "notable_elements": [
+        "package headline input",
+        "rich text description editor",
+        "hero image placeholder area",
+        "edit hero image button",
+        "hidden image file input",
+        "pricing section",
+        "package pricing modal",
+        "set price input",
+        "update pricing button",
+        "publish package button"
+      ],
+      "warnings": [
+        "Hero image upload starts from the visible Edit button in the hero image area, then opens a native file chooser window tied to a hidden file input.",
+        "Publish readiness appears to depend on completing image upload successfully.",
+        "Publish outcome could not be confirmed during Stage 1 because image upload remained blocked by tool file-access policy.",
+        "Intercom iframe remains mounted and is not part of the target flow."
+      ]
+    }
+  ],
+  "locator_map": [
+    {
+      "element_id": "login_email_input",
+      "page_route": "/pro/login",
+      "semantic_role": "textbox",
+      "primary_selector": "getByRole('textbox', { name: 'Your email...' })",
+      "fallback_selectors": [
+        "input[placeholder='Your email...']"
+      ],
+      "confidence": "high",
+      "selector_reason": "Accessible name and placeholder are stable.",
+      "stability_flags": []
+    },
+    {
+      "element_id": "login_password_input",
+      "page_route": "/pro/login",
+      "semantic_role": "textbox",
+      "primary_selector": "getByRole('textbox', { name: 'Your password...' })",
+      "fallback_selectors": [
+        "input[placeholder='Your password...']"
+      ],
+      "confidence": "high",
+      "selector_reason": "Accessible name and placeholder are stable.",
+      "stability_flags": []
+    },
+    {
+      "element_id": "login_submit_button",
+      "page_route": "/pro/login",
+      "semantic_role": "button",
+      "primary_selector": "getByRole('button', { name: 'Login' })",
+      "fallback_selectors": [
+        "button:has-text('Login')"
+      ],
+      "confidence": "high",
+      "selector_reason": "Stable button label; disabled until credentials are entered.",
+      "stability_flags": [
+        "disabled_until_form_complete"
+      ]
+    },
+    {
+      "element_id": "preview_sidebar_nav",
+      "page_route": "/pro/preview",
+      "semantic_role": "navigation",
+      "primary_selector": "page.locator('a[href=\"/pro/preview\"]').first()",
+      "fallback_selectors": [
+        "getByRole('link', { name: 'Public Profile' })"
+      ],
+      "confidence": "medium",
+      "selector_reason": "Sidebar is visible and route-backed, but top-level package icon lacks an accessible label.",
+      "stability_flags": [
+        "icon_only_sidebar_entries"
+      ]
+    },
+    {
+      "element_id": "sidebar_package_link",
+      "page_route": "/pro/preview",
+      "semantic_role": "link",
+      "primary_selector": "page.locator('a[href=\"/pro/marketplace-packages\"]').first()",
+      "fallback_selectors": [
+        "page.getByRole('link').filter({ has: page.locator('a[href=\"/pro/marketplace-packages\"] img') }).first()"
+      ],
+      "confidence": "medium",
+      "selector_reason": "Href is stable, but captured element is icon-only and lacks a strong accessible name.",
+      "stability_flags": [
+        "weak_accessible_name"
+      ]
+    },
+    {
+      "element_id": "packages_heading",
+      "page_route": "/pro/marketplace-packages",
+      "semantic_role": "heading",
+      "primary_selector": "getByRole('heading', { name: 'Marketplace Packages' })",
+      "fallback_selectors": [
+        "h2:has-text('Marketplace Packages')"
+      ],
+      "confidence": "high",
+      "selector_reason": "Stable visible heading after route navigation.",
+      "stability_flags": []
+    },
+    {
+      "element_id": "create_package_button",
+      "page_route": "/pro/marketplace-packages",
+      "semantic_role": "button",
+      "primary_selector": "getByRole('button', { name: 'Create Package' })",
+      "fallback_selectors": [
+        "button:has-text('Create Package')"
+      ],
+      "confidence": "high",
+      "selector_reason": "Stable call-to-action label in banner section.",
+      "stability_flags": []
+    },
+    {
+      "element_id": "packages_table",
+      "page_route": "/pro/marketplace-packages",
+      "semantic_role": "table",
+      "primary_selector": "page.locator('table').first()",
+      "fallback_selectors": [
+        "getByRole('table')"
+      ],
+      "confidence": "medium",
+      "selector_reason": "Single main table captured, but row contents are dynamic.",
+      "stability_flags": [
+        "dynamic_row_data"
+      ]
+    },
+    {
+      "element_id": "create_new_package_modal_heading",
+      "page_route": "/pro/marketplace-packages",
+      "semantic_role": "dialog_heading",
+      "primary_selector": "getByText('Create New Package')",
+      "fallback_selectors": [
+        "page.locator('p').filter({ hasText: 'Create New Package' }).first()"
+      ],
+      "confidence": "medium",
+      "selector_reason": "Visible modal title exists, but snapshot exposed it as paragraph text rather than semantic dialog heading.",
+      "stability_flags": [
+        "non_semantic_modal_heading"
+      ]
+    },
+    {
+      "element_id": "new_package_name_input",
+      "page_route": "/pro/marketplace-packages",
+      "semantic_role": "textbox",
+      "primary_selector": "getByRole('textbox', { name: 'Enter package name' })",
+      "fallback_selectors": [
+        "input[placeholder='Enter package name']"
+      ],
+      "confidence": "high",
+      "selector_reason": "Stable textbox placeholder inside popup.",
+      "stability_flags": [
+        "max_length_90"
+      ]
+    },
+    {
+      "element_id": "create_new_confirm_button",
+      "page_route": "/pro/marketplace-packages",
+      "semantic_role": "button",
+      "primary_selector": "getByRole('button', { name: 'Create New' })",
+      "fallback_selectors": [
+        "button:has-text('Create New')"
+      ],
+      "confidence": "high",
+      "selector_reason": "Stable button label in popup.",
+      "stability_flags": []
+    },
+    {
+      "element_id": "package_headline_input",
+      "page_route": "/pro/marketplace-packages/create",
+      "semantic_role": "textbox",
+      "primary_selector": "getByRole('textbox', { name: 'Package headline goes here' })",
+      "fallback_selectors": [
+        "input[placeholder='Package headline goes here']"
+      ],
+      "confidence": "high",
+      "selector_reason": "Stable accessible name via placeholder.",
+      "stability_flags": []
+    },
+    {
+      "element_id": "package_description_editor",
+      "page_route": "/pro/marketplace-packages/create",
+      "semantic_role": "rich_text_editor",
+      "primary_selector": "page.locator('.ql-editor').first()",
+      "fallback_selectors": [
+        "page.locator('[contenteditable=\"true\"]').first()"
+      ],
+      "confidence": "medium",
+      "selector_reason": "Quill editor is contenteditable and not exposed as a normal textbox.",
+      "stability_flags": [
+        "rich_text_editor",
+        "contenteditable"
+      ]
+    },
+    {
+      "element_id": "edit_image_button",
+      "page_route": "/pro/marketplace-packages/create",
+      "semantic_role": "button",
+      "primary_selector": "getByRole('button', { name: 'Edit' }).first()",
+      "fallback_selectors": [
+        "page.locator('button').filter({ hasText: 'Edit' }).first()"
+      ],
+      "confidence": "low",
+      "selector_reason": "Visible Edit button is rendered inside the hero image placeholder area and is the trigger that opens the OS/native file chooser.",
+      "stability_flags": [
+        "ambiguous_label",
+        "opens_native_file_chooser"
+      ]
+    },
+    {
+      "element_id": "hero_image_file_input",
+      "page_route": "/pro/marketplace-packages/create",
+      "semantic_role": "file_input",
+      "primary_selector": "page.locator('input[type=\"file\"][accept*=\"image/png\"]').nth(0)",
+      "fallback_selectors": [
+        "page.locator('input[type=\"file\"]').nth(0)"
+      ],
+      "confidence": "low",
+      "selector_reason": "Input is hidden behind the Edit button flow. Real user interaction is Edit click -> native chooser window -> file selection -> hidden input receives file.",
+      "stability_flags": [
+        "hidden_input",
+        "native_file_chooser"
+      ]
+    },
+    {
+      "element_id": "add_pricing_button",
+      "page_route": "/pro/marketplace-packages/create",
+      "semantic_role": "button",
+      "primary_selector": "getByRole('button', { name: 'Add Pricing' })",
+      "fallback_selectors": [
+        "button:has-text('Add Pricing')"
+      ],
+      "confidence": "high",
+      "selector_reason": "Stable button label before pricing exists.",
+      "stability_flags": []
+    },
+    {
+      "element_id": "pricing_modal_heading",
+      "page_route": "/pro/marketplace-packages/create",
+      "semantic_role": "heading",
+      "primary_selector": "getByRole('heading', { name: 'Package Pricing' })",
+      "fallback_selectors": [
+        "text=Package Pricing"
+      ],
+      "confidence": "high",
+      "selector_reason": "Stable visible heading in pricing modal.",
+      "stability_flags": []
+    },
+    {
+      "element_id": "pricing_amount_input",
+      "page_route": "/pro/marketplace-packages/create",
+      "semantic_role": "textbox",
+      "primary_selector": "getByRole('textbox', { name: 'SET PRICE £' })",
+      "fallback_selectors": [
+        "input[aria-label='SET PRICE £']"
+      ],
+      "confidence": "high",
+      "selector_reason": "Textbox exposes a stable accessible label.",
+      "stability_flags": []
+    },
+    {
+      "element_id": "update_pricing_button",
+      "page_route": "/pro/marketplace-packages/create",
+      "semantic_role": "button",
+      "primary_selector": "getByRole('button', { name: 'Update Pricing' })",
+      "fallback_selectors": [
+        "button:has-text('Update Pricing')"
+      ],
+      "confidence": "high",
+      "selector_reason": "Stable button label within pricing modal.",
+      "stability_flags": []
+    },
+    {
+      "element_id": "publish_package_button",
+      "page_route": "/pro/marketplace-packages/create",
+      "semantic_role": "button",
+      "primary_selector": "getByRole('button', { name: 'Publish Package' })",
+      "fallback_selectors": [
+        "button:has-text('Publish Package')"
+      ],
+      "confidence": "high",
+      "selector_reason": "Stable button label on package editor header.",
+      "stability_flags": [
+        "business_state_dependent"
+      ]
+    }
+  ],
+  "interaction_patterns": [
+    {
+      "scenario_name": "Marketplace Login success to preview page",
+      "steps": [
+        {
+          "step_text": "Given user is on Web platform https://landing-stg.everfit.io/pro/login",
+          "intent": "navigate",
+          "page_route": "/pro/login",
+          "target_element_id": null,
+          "notes": "Route requires browser basic auth before page inspection."
+        },
+        {
+          "step_text": "And the web application is accessible with browser basic authentication",
+          "intent": "other",
+          "page_route": "/pro/login",
+          "target_element_id": null,
+          "notes": "Use runtime-only basic auth credentials."
+        },
+        {
+          "step_text": "When user opens the web application with basic auth credentials",
+          "intent": "navigate",
+          "page_route": "/pro/login",
+          "target_element_id": null
+        },
+        {
+          "step_text": "And user logs in successfully with valid \"coach\" credentials",
+          "intent": "fill",
+          "page_route": "/pro/login",
+          "target_element_id": "login_email_input",
+          "notes": "Fill email and password, then submit via login button."
+        },
+        {
+          "step_text": "Then user should be redirected to the dashboard at \"/pro/preview\"",
+          "intent": "assert_url",
+          "page_route": "/pro/preview",
+          "target_element_id": null
+        },
+        {
+          "step_text": "And page should be fully loaded with navigation sidebar visible",
+          "intent": "assert_visible",
+          "page_route": "/pro/preview",
+          "target_element_id": "preview_sidebar_nav"
+        }
+      ]
+    },
+    {
+      "scenario_name": "Create and publish a new package from marketplace packages page",
+      "steps": [
+        {
+          "step_text": "When user opens the web application with basic auth credentials",
+          "intent": "navigate",
+          "page_route": "/pro/login",
+          "target_element_id": null
+        },
+        {
+          "step_text": "And user logs in successfully with valid \"coach\" credentials",
+          "intent": "fill",
+          "page_route": "/pro/login",
+          "target_element_id": "login_email_input",
+          "notes": "Reuse login flow from previous scenario."
+        },
+        {
+          "step_text": "Then user should be redirected to the dashboard at \"/pro/preview\"",
+          "intent": "assert_url",
+          "page_route": "/pro/preview",
+          "target_element_id": null
+        },
+        {
+          "step_text": "And page should be fully loaded with navigation sidebar visible",
+          "intent": "assert_visible",
+          "page_route": "/pro/preview",
+          "target_element_id": "preview_sidebar_nav"
+        },
+        {
+          "step_text": "When user clicks on \"Package\" menu item in sidebar navigation",
+          "intent": "click",
+          "page_route": "/pro/preview",
+          "target_element_id": "sidebar_package_link"
+        },
+        {
+          "step_text": "Then user should navigate to \"/pro/marketplace-packages\"",
+          "intent": "assert_url",
+          "page_route": "/pro/marketplace-packages",
+          "target_element_id": null
+        },
+        {
+          "step_text": "And packages table should be displayed with package data",
+          "intent": "assert_visible",
+          "page_route": "/pro/marketplace-packages",
+          "target_element_id": "packages_table"
+        },
+        {
+          "step_text": "When user clicks the \"Create package\" button",
+          "intent": "click",
+          "page_route": "/pro/marketplace-packages",
+          "target_element_id": "create_package_button"
+        },
+        {
+          "step_text": "Then the \"Create New Package\" popup should be displayed",
+          "intent": "assert_visible",
+          "page_route": "/pro/marketplace-packages",
+          "target_element_id": "create_new_package_modal_heading"
+        },
+        {
+          "step_text": "When user enters a random package name with 90 characters",
+          "intent": "fill",
+          "page_route": "/pro/marketplace-packages",
+          "target_element_id": "new_package_name_input",
+          "notes": "Captured successfully with a 90-character generated value."
+        },
+        {
+          "step_text": "And user clicks the \"Create New\" button",
+          "intent": "click",
+          "page_route": "/pro/marketplace-packages",
+          "target_element_id": "create_new_confirm_button"
+        },
+        {
+          "step_text": "Then user should navigate to \"/pro/marketplace-packages/create\"",
+          "intent": "assert_url",
+          "page_route": "/pro/marketplace-packages/create",
+          "target_element_id": null
+        },
+        {
+          "step_text": "When user enters a random headline",
+          "intent": "fill",
+          "page_route": "/pro/marketplace-packages/create",
+          "target_element_id": "package_headline_input"
+        },
+        {
+          "step_text": "And user enters a random description",
+          "intent": "fill",
+          "page_route": "/pro/marketplace-packages/create",
+          "target_element_id": "package_description_editor",
+          "notes": "Rich text editor requires a dedicated helper instead of plain textbox handling."
+        },
+        {
+          "step_text": "And user clicks the \"Edit image\" button",
+          "intent": "click",
+          "page_route": "/pro/marketplace-packages/create",
+          "target_element_id": "edit_image_button",
+          "notes": "This is the visible trigger inside the hero image placeholder. Clicking it opens the system/native file chooser window."
+        },
+        {
+          "step_text": "And user uploads any image from \"D:\\Local Disk (E)\\Tester\\Images Fitness\"",
+          "intent": "upload",
+          "page_route": "/pro/marketplace-packages/create",
+          "target_element_id": "hero_image_file_input",
+          "notes": "Context for this step is Edit click -> native chooser window/modal -> select file -> hidden input receives file. Hidden file input was identified, but live upload remained blocked by Playwright MCP file-root restrictions."
+        },
+        {
+          "step_text": "And user clicks the package pricing section",
+          "intent": "click",
+          "page_route": "/pro/marketplace-packages/create",
+          "target_element_id": "add_pricing_button"
+        },
+        {
+          "step_text": "Then the \"Package Pricing\" popup should be displayed",
+          "intent": "assert_visible",
+          "page_route": "/pro/marketplace-packages/create",
+          "target_element_id": "pricing_modal_heading"
+        },
+        {
+          "step_text": "When user sets a random package price",
+          "intent": "fill",
+          "page_route": "/pro/marketplace-packages/create",
+          "target_element_id": "pricing_amount_input"
+        },
+        {
+          "step_text": "And user clicks the \"Update Pricing\" button",
+          "intent": "click",
+          "page_route": "/pro/marketplace-packages/create",
+          "target_element_id": "update_pricing_button"
+        },
+        {
+          "step_text": "And user clicks the \"Publish Package\" button",
+          "intent": "click",
+          "page_route": "/pro/marketplace-packages/create",
+          "target_element_id": "publish_package_button",
+          "notes": "Captured click action, but publish result was not externally confirmed."
+        },
+        {
+          "step_text": "Then the package should be published successfully",
+          "intent": "assert_visible",
+          "page_route": "/pro/marketplace-packages/create",
+          "target_element_id": null,
+          "notes": "Needs success-state confirmation strategy because upload blocker prevented end-to-end verification."
+        }
+      ]
+    }
+  ],
+  "coverage_gaps": [
+    {
+      "gap_id": "gap_upload_tool_access",
+      "type": "environment_blocked",
+      "page_route": "/pro/marketplace-packages/create",
+      "step_text": "And user uploads any image from \"D:\\Local Disk (E)\\Tester\\Images Fitness\"",
+      "details": "The visible Edit button correctly triggered the native file chooser window. Playwright MCP then denied direct file access outside its allowed roots. The hidden image file input was identified, so the gap is environment/tool access after a correct trigger path, not selector discovery."
+    },
+    {
+      "gap_id": "gap_edit_button_ambiguity",
+      "type": "weak_selector_only",
+      "page_route": "/pro/marketplace-packages/create",
+      "step_text": "And user clicks the \"Edit image\" button",
+      "details": "The captured hero image trigger is labeled only as 'Edit', which is semantically weak and may collide with other edit controls if the page layout changes."
+    },
+    {
+      "gap_id": "gap_publish_outcome_unverified",
+      "type": "requires_human_review",
+      "page_route": "/pro/marketplace-packages/create",
+      "step_text": "Then the package should be published successfully",
+      "details": "Publish button click was captured, but no success toast, redirect, or state transition was observed after the click in Stage 1. Current evidence suggests successful image upload is a prerequisite for a reliable publish-success path."
+    }
+  ],
+  "integration_hints": [
+    "Browser basic auth is required before login page access.",
+    "Package editor uses a Quill rich-text editor for description entry.",
+    "Hero image upload flow is: visible Edit button in hero image area -> native file chooser window -> hidden file input receives the file.",
+    "Intercom iframe is mounted across pages and should be ignored unless it becomes blocking.",
+    "Stripe iframe is present on preview page but not part of this intended package-creation flow."
+  ],
+  "required_human_checkpoints": [
+    "Confirm the expected success signal for a published package after image upload succeeds: toast, status badge change, redirect, or row presence in packages table.",
+    "Decide whether the workflow should save the package explicitly before publish when automation runs in a stricter environment.",
+    "Verify file-upload execution path in a runtime that can access the source image directory or provide a workspace-local upload fixture."
+  ],
+  "recommended_test_utilities": [
+    "randomString(length)",
+    "fillQuillEditor(locator, text)",
+    "resolveUploadFixtureFromEnv()",
+    "waitForReadyStateAfterLogin()",
+    "assertPublishReady(locator)"
+  ],
+  "page_state_hints": [
+    {
+      "page_route": "/pro/login",
+      "state": "ready",
+      "evidence": "Login page stabilized with email/password textboxes, a disabled-until-complete login button, one alert node, and an Intercom iframe."
+    },
+    {
+      "page_route": "/pro/preview",
+      "state": "ready",
+      "evidence": "Dashboard preview stabilized after redirect with visible sidebar and marketplace section links. Stripe and Intercom iframes were present but non-blocking."
+    },
+    {
+      "page_route": "/pro/marketplace-packages",
+      "state": "ready",
+      "evidence": "Packages list page stabilized with heading, create package CTA, and populated table."
+    },
+    {
+      "page_route": "/pro/marketplace-packages/create",
+      "state": "ready",
+      "evidence": "Editor page stabilized with hero image placeholder, visible Edit trigger, hidden file input, headline field, Quill description editor, pricing section, and publish button."
+    },
+    {
+      "page_route": "/pro/marketplace-packages/create",
+      "state": "unknown",
+      "evidence": "After clicking Publish Package, the route stayed on the editor and no explicit success or validation state appeared within the captured window."
+    }
+  ]
+}
