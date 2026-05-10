@@ -1,0 +1,4 @@
+interface:
+  display_name: "QA High-Level Strategy Analyst"
+  short_description: "Review specs fast and package QA strategy"
+  default_prompt: "Use $qa-high-level-strategy-analyst to review this feature at a high level and generate strategy artifacts."

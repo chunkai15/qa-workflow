@@ -1,0 +1,4 @@
+interface:
+  display_name: "Jira Epic Snapshot"
+  short_description: "Snapshot an epic into compact reusable notes"
+  default_prompt: "Use $jira-epic-story-snapshot to summarize this Jira epic into a compact markdown snapshot for tickets and worklogs."

@@ -1,0 +1,391 @@
+{
+  "title": "Session Credits P3.1 - Package Issuance Test Strategy",
+  "sections": [
+    {
+      "title": "Objectives",
+      "children": [
+        {
+          "title": "Validate package-based session credit issuance triggers only when payment, activation, and Booking gate all pass"
+        },
+        {
+          "title": "Ensure purchase snapshot rules remain stable for existing purchases after package edits"
+        },
+        {
+          "title": "Verify recurring, trial, recharge, and late-activation issuance paths do not over-issue or skip credits incorrectly"
+        },
+        {
+          "title": "Confirm purchase and invoice status redefinition stays consistent across details, filters, and actions"
+        },
+        {
+          "title": "Verify source linkage, notification, and history behavior for package-issued credits"
+        }
+      ]
+    },
+    {
+      "title": "Scope of Testing",
+      "children": [
+        {
+          "title": "In Scope",
+          "children": [
+            {
+              "title": "Package pricing and session credit configuration",
+              "children": [
+                {
+                  "title": "Pricing model, free trial, rule count, quantity, expiration, session type eligibility"
+                },
+                {
+                  "title": "Published package edit rules and publish blocking for invalid session types"
+                }
+              ]
+            },
+            {
+              "title": "Credit issuance engine",
+              "children": [
+                {
+                  "title": "One-time, recurring, trial, recharge recovery, late activation, archived client"
+                },
+                {
+                  "title": "Snapshot usage, expiration anchor, cycle-level issuance marker"
+                }
+              ]
+            },
+            {
+              "title": "Purchase and invoice lifecycle",
+              "children": [
+                {
+                  "title": "Active, Free Trial, Overdue, Paused, Expires Soon, Expired, Cancels Soon, Cancelled"
+                },
+                {
+                  "title": "Pending, Paid, Overdue, Failed, Expired, Refunded invoice states"
+                }
+              ]
+            },
+            {
+              "title": "Client and coach surfaces",
+              "children": [
+                {
+                  "title": "Purchase Details, Balance History, Client Overview, Sessions Credits tab"
+                },
+                {
+                  "title": "Permission-sensitive source links and issuance notifications"
+                }
+              ]
+            },
+            {
+              "title": "Feature flag and migration behavior",
+              "children": [
+                {
+                  "title": "Booking OFF, Payment and Packages OFF, pre-P3.1 package and purchase migration"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Out of Scope",
+          "children": [
+            {
+              "title": "Issuing credits during free trial"
+            },
+            {
+              "title": "Automatic deletion of credits when Booking is disabled"
+            },
+            {
+              "title": "Client-facing package-page session credit display"
+            },
+            {
+              "title": "Bulk credit management and coach-level reporting"
+            },
+            {
+              "title": "Mobile Package future integrations beyond current notification navigation"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Testing Levels",
+      "children": [
+        {
+          "title": "Unit Test",
+          "children": [
+            {
+              "title": "Issuance gate, expiration anchor, quantity/rule validations, status transition helpers"
+            }
+          ]
+        },
+        {
+          "title": "Integration Testing",
+          "children": [
+            {
+              "title": "Payment success and recharge events, activation event, feature flag checks, persistence of issuance markers"
+            }
+          ]
+        },
+        {
+          "title": "System Testing",
+          "children": [
+            {
+              "title": "End-to-end package purchase to credit balance and history update across one-time and recurring models"
+            }
+          ]
+        },
+        {
+          "title": "UI/UX Testing",
+          "children": [
+            {
+              "title": "Pricing modal, purchase details, purchase filters, client overview, source-link behavior"
+            }
+          ]
+        },
+        {
+          "title": "Regression Testing",
+          "children": [
+            {
+              "title": "Existing payment flows, trial flows, pause/cancel/reactivate actions, Balance History, Sessions tab"
+            }
+          ]
+        },
+        {
+          "title": "Sanity Test",
+          "children": [
+            {
+              "title": "Critical paid purchase issue path, one recurring renewal, one non-clickable permission case"
+            }
+          ]
+        },
+        {
+          "title": "Smoke Test",
+          "children": [
+            {
+              "title": "Package creation, paid purchase, credit issuance visibility, no duplicate issuance"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Testing Approaches",
+      "children": [
+        {
+          "title": "Functional Testing",
+          "children": [
+            {
+              "title": "Positive issuance flows for one-time, trial, recurring, recharge, and late activation"
+            },
+            {
+              "title": "Negative blocking flows for invalid session types, failed cycles, and feature-flag suppression"
+            }
+          ]
+        },
+        {
+          "title": "Testing Types",
+          "children": [
+            {
+              "title": "UI testing for package pricing and purchase details"
+            },
+            {
+              "title": "API and webhook testing for payment and activation ordering"
+            },
+            {
+              "title": "Data integrity testing for snapshot persistence, issuance markers, and history linkage"
+            },
+            {
+              "title": "Notification and permission testing for coach-facing issuance updates"
+            }
+          ]
+        },
+        {
+          "title": "Test Design Techniques",
+          "children": [
+            {
+              "title": "Decision Table Testing for payment + activation + Booking gate"
+            },
+            {
+              "title": "State Transition Testing for purchase and invoice lifecycles"
+            },
+            {
+              "title": "Boundary Value Analysis for quantity, rule count, billing cycle, and expiration inputs"
+            },
+            {
+              "title": "Equivalence Partitioning for pricing model, trial mode, activation path, and feature flags"
+            },
+            {
+              "title": "Error Guessing for webhook retries, stale tabs, duplicate activation, and migration gaps"
+            }
+          ]
+        },
+        {
+          "title": "Automation Approaches",
+          "children": [
+            {
+              "title": "API and integration automation for issuance gate, recharge recovery, and marker idempotency"
+            },
+            {
+              "title": "UI regression automation for package pricing, purchase details, and client balance visibility"
+            },
+            {
+              "title": "Targeted event-driven tests for payment webhook replay and late-activation catch-up"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Test Data Preparation",
+      "children": [
+        {
+          "title": "Workspace configurations",
+          "children": [
+            {
+              "title": "Booking ON/OFF, Payment and Packages ON/OFF, Stripe connected vs not connected"
+            }
+          ]
+        },
+        {
+          "title": "Package variants",
+          "children": [
+            {
+              "title": "One-time without trial, one-time with trial, recurring without trial, recurring with trial"
+            },
+            {
+              "title": "1-rule and multi-rule packages with distinct session types"
+            }
+          ]
+        },
+        {
+          "title": "Boundary values",
+          "children": [
+            {
+              "title": "Rule quantity 0, 1, 100, 101"
+            },
+            {
+              "title": "Rule count 0, 1, 5, 6"
+            },
+            {
+              "title": "Billing cycle 0, 1, 12, 13"
+            }
+          ]
+        },
+        {
+          "title": "Session type states",
+          "children": [
+            {
+              "title": "Active require_credit true, archived, require_credit false, updated name/color"
+            }
+          ]
+        },
+        {
+          "title": "Client and purchase states",
+          "children": [
+            {
+              "title": "Logged-in purchase, guest purchase, late activation, archived client, pre-P3.1 legacy purchase"
+            }
+          ]
+        },
+        {
+          "title": "Payment states",
+          "children": [
+            {
+              "title": "Successful first payment, failed first paid invoice, overdue renewal, recharge success, refunded paid invoice"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Test Environments & Tools",
+      "children": [
+        {
+          "title": "Environments",
+          "children": [
+            {
+              "title": "QA or staging web app with Payment and Booking feature flag control"
+            },
+            {
+              "title": "Stripe test mode for paid, failed, overdue, and recharge scenarios"
+            },
+            {
+              "title": "Data access to purchases, invoices, snapshots, issuance markers, and client balances"
+            }
+          ]
+        },
+        {
+          "title": "Tools",
+          "children": [
+            {
+              "title": "Stripe Dashboard or event simulator for invoice lifecycle and recharge events"
+            },
+            {
+              "title": "API client or Postman for package, purchase, and session type validation"
+            },
+            {
+              "title": "Application logs and event traces for activation and issuance sequencing"
+            },
+            {
+              "title": "Database or admin inspection for snapshot persistence and idempotency checks"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Exit Criteria",
+      "children": [
+        {
+          "title": "Functional Exit Criteria",
+          "children": [
+            {
+              "title": "Critical issuance paths validated across one-time, recurring, trial, recharge, and late activation"
+            },
+            {
+              "title": "No unresolved P0 defects in balance integrity, duplicate issuance, or missed-cycle logic"
+            },
+            {
+              "title": "Snapshot and feature-flag behavior confirmed against agreed product rules"
+            }
+          ]
+        },
+        {
+          "title": "Non-functional Exit Criteria",
+          "children": [
+            {
+              "title": "Webhook or retry behavior does not create duplicate issuance"
+            },
+            {
+              "title": "Late-activation flow updates balance within acceptable delay for the chosen implementation model"
+            }
+          ]
+        },
+        {
+          "title": "Documentation Exit Criteria",
+          "children": [
+            {
+              "title": "Open conflicts and pending BE decisions are recorded before detailed TC generation"
+            },
+            {
+              "title": "High-level strategy analysis is accepted as upstream input for qa-master-workflow"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Deliverables",
+      "children": [
+        {
+          "title": "high-level-strategy-analysis.md"
+        },
+        {
+          "title": "strategy-tree.json"
+        },
+        {
+          "title": "package-issuance-p3-1-test-strategy.xmind"
+        },
+        {
+          "title": "Follow-on inputs for qa-master-workflow, context building, and scenario planning"
+        }
+      ]
+    }
+  ]
+}

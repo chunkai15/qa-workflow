@@ -1,0 +1,23 @@
+project_key: MP
+project_name: MP
+
+fields:
+  qa: Pending confirmation
+  sprint: Pending confirmation
+
+defaults:
+  qa_user:
+    display_name: Pending confirmation
+    jira_account_id: Pending confirmation
+
+feature_snapshot:
+  search_paths:
+    - doc/
+  filename_patterns:
+    - "{epic_key}-user-stories.md"
+    - "{epic_key}-epic-snapshot.md"
+
+slack_user_mapping: {}
+
+routing:
+  issue_domain_to_story: {}

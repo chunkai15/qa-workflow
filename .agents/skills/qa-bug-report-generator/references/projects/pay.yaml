@@ -1,0 +1,38 @@
+project_key: PAY
+project_name: Payment | Sprint Development
+
+fields:
+  qa: customfield_10131
+  sprint: customfield_10010
+
+defaults:
+  qa_user:
+    display_name: Khai Truong (QA)
+    jira_account_id: 712020:b2527a32-ac86-438d-94c9-21e8644823ef
+
+feature_snapshot:
+  search_paths:
+    - doc/
+  filename_patterns:
+    - "{epic_key}-user-stories.md"
+    - "{epic_key}-epic-snapshot.md"
+
+slack_user_mapping:
+  Hieu Le(FE): U08H7AVUQKB
+  Duy Nguyen (BE): U09TWQ72SRY
+  Chien Nguyen (BE): U08BE96NYE6
+  Hoang Ho (BE): U07DG94SPS8
+  Linh Nguyen (BE): U03CH8EP12L
+  Vinh Tran (FE): U0A0ANCKWQJ
+  Thinh Huynh (FE): U05THHZDP7G
+
+routing:
+  issue_domain_to_story:
+    issuance:
+      - PAY-2030
+    visibility_alert_notification:
+      - PAY-2031
+    delete_reduce_priority:
+      - PAY-2032
+    auto_expire_history_post_expiration:
+      - PAY-2034

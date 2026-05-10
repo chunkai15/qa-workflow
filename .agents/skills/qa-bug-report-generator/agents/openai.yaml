@@ -1,0 +1,4 @@
+interface:
+  display_name: "QA Bug Reporter"
+  short_description: "Draft and create Jira-ready QA bugs and tasks"
+  default_prompt: "Use $qa-bug-report-generator to turn QA evidence or Slack thread context into a Jira-ready bug or task ticket, resolve project-specific fields, and prepare Slack follow-up."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Jira Calendar Report"
+  short_description: "Daily Jira and Calendar report format."
+  default_prompt: "Use $jira-calendar-daily-report to produce a daily report with Jira activity and Google Calendar meeting summaries."
