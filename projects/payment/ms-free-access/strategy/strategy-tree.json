@@ -1,0 +1,285 @@
+{
+  "title": "MacroSnap — Free Access for Coach's Own Client Account (v2 Finalized)",
+  "sections": [
+    {
+      "title": "Objectives",
+      "children": [
+        { "title": "Validate complementary MS license is granted automatically on new client creation (email match + paid WS)" },
+        { "title": "Validate complementary license is NOT counted in subscription seat total and NOT visible on MS management page" },
+        { "title": "Validate revocation triggers: coach removed from WS, WS downgraded to Starter (archive is NOT a trigger)" },
+        { "title": "Validate dual-license reconciliation: client assigned via MS management first, then added as teammate — license counted; unassign → complementary takes over" },
+        { "title": "Validate UI disabled button + tooltip on client profile when WS has active MS subscription; button hidden when MS cancelled" },
+        { "title": "Validate migration job grants retroactive complementary MS to all eligible existing accounts; email NOT sent for WL WS" },
+        { "title": "Validate pre-release manual assign is reconciled and manual unassign remains unassigned post-migration" },
+        { "title": "QA-internal: Verify archived client does NOT accidentally trigger grant/revoke; confirm migration email query handles archived clients correctly" }
+      ]
+    },
+    {
+      "title": "Scope of Testing",
+      "children": [
+        {
+          "title": "In Scope",
+          "children": [
+            { "title": "Complementary license grant: invite path, add teammate path (both dual-license and non-dual-license)" },
+            { "title": "Retroactive migration grant job (existing eligible accounts)" },
+            { "title": "Revocation: coach removal from WS, WS downgrade to Starter" },
+            { "title": "Dual-license reconciliation (BR-13): MS management assign → add teammate → manual unassign" },
+            { "title": "Seat count integrity (complementary license not counted)" },
+            { "title": "MS management page and assignment dropdown visibility" },
+            { "title": "State transitions: client (connected/archived/pending/deleted), coach (pending/active/deleted), WS plan (paid/Starter), MS subscription (active/cancelled)" },
+            { "title": "Email notification: retroactive grant email (one-time, non-WL only); no email for new post-deployment or WL WS accounts" },
+            { "title": "UI: disabled button + tooltip on client profile (MS subscription active)" },
+            { "title": "UI: button hidden on client profile (MS subscription cancelled)" },
+            { "title": "UI callout for paid plan coaches (perk awareness)" },
+            { "title": "UI callout for Free/Trial plan coaches (upsell)" },
+            { "title": "Migration data matrix: coach plan x client role x client status x pre-release license state permutations" },
+            { "title": "White-label WS: grant eligibility (Yes); email suppression (Yes)" },
+            { "title": "QA-internal: archived client does NOT trigger revoke/re-grant" }
+          ]
+        },
+        {
+          "title": "Out of Scope",
+          "children": [
+            { "title": "Archive/unarchive as revocation/re-grant triggers (removed from product scope in v2)" },
+            { "title": "Regular MS license purchase and assignment flows (not changed)" },
+            { "title": "MS feature functionality within client app (nutrition tracking etc.)" },
+            { "title": "Claim package activation path (pending BE/PM confirmation)" },
+            { "title": "Enterprise / non-Self-Serve WS plan behavior" }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Testing Levels",
+      "children": [
+        {
+          "title": "Integration Testing",
+          "children": [
+            { "title": "Grant engine: eligibility check across all activation paths" },
+            { "title": "Revocation handler: coach removal, WS downgrade" },
+            { "title": "Dual-license reconciliation: MS management assign → add teammate → unassign" },
+            { "title": "State transition events: client and coach lifecycle hooks" },
+            { "title": "Migration job: retroactive grant + email with WL suppression" }
+          ]
+        },
+        {
+          "title": "System Testing",
+          "children": [
+            { "title": "End-to-end grant → use → revoke flow" },
+            { "title": "End-to-end dual-license → unassign → complementary access retained" },
+            { "title": "Seat count before/after migration; before/after dual-license unassign" },
+            { "title": "MS management page visibility across all scenarios" },
+            { "title": "Email delivery, WL suppression, and deduplication" }
+          ]
+        },
+        {
+          "title": "UI/UX Testing",
+          "children": [
+            { "title": "Client profile: disabled button state with tooltip (MS subscription active)" },
+            { "title": "Client profile: button hidden state (MS subscription cancelled)" },
+            { "title": "Perk callout on MS page for paid WS coaches" },
+            { "title": "Upsell callout for Free/Trial coaches" },
+            { "title": "Upgrade Everfit plan link navigation" }
+          ]
+        },
+        {
+          "title": "Regression Testing",
+          "children": [
+            { "title": "Existing regular MS assignment/unassignment flows (non-complementary clients)" },
+            { "title": "MS management page counts for non-complementary licenses" },
+            { "title": "WS plan change flows (upgrade/downgrade)" },
+            { "title": "QA-internal: archived client state — no accidental revoke/re-grant" }
+          ]
+        },
+        {
+          "title": "Sanity Test",
+          "children": [
+            { "title": "Create connected client → verify MS access in client app" },
+            { "title": "Remove coach from WS → verify MS access revoked" },
+            { "title": "Verify MS management page seat count unchanged after grant" },
+            { "title": "Verify disabled button + tooltip on client profile" }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Testing Approaches",
+      "children": [
+        {
+          "title": "Functional Testing",
+          "children": [
+            { "title": "Verify all 7 canonical flows (F1–F7) from Core Business Flow" },
+            { "title": "Verify all 16 canonical business rules (BR-01 to BR-16)" },
+            { "title": "Verify all 5 user concerns (Concerns #1–#5)" },
+            { "title": "Verify 4 meeting-decision changes (archive removal, disabled UI, dual-license, WL email)" }
+          ]
+        },
+        {
+          "title": "Testing Types",
+          "children": [
+            { "title": "State Transition Testing — client, coach, WS plan, MS subscription lifecycle" },
+            { "title": "Migration Testing — pre-release data reconciliation + dual-license cleanup" },
+            { "title": "Negative Testing — ineligible plans, role-change non-trigger, WL email suppression" },
+            { "title": "Boundary Testing — plan change timing, email case sensitivity, MS cancellation timing" },
+            { "title": "Race Condition Testing — concurrent migration + plan change; dual-license simultaneous grant" }
+          ]
+        },
+        {
+          "title": "Test Design Techniques",
+          "children": [
+            { "title": "Decision Table — WS plan x coach role x client state x email match x WL flag" },
+            { "title": "State Transition Matrix — all valid/invalid transitions for client, coach, WS plan, MS subscription" },
+            { "title": "Equivalence Partitioning — paid/non-paid; Owner/Admin/Trainer; standard/WL; manual assigned/unassigned/none" },
+            { "title": "Error Guessing — pre-release states, dual-license, concurrent operations, archived client" },
+            { "title": "Pairwise Testing — migration data matrix permutations" }
+          ]
+        },
+        {
+          "title": "Automation Approaches",
+          "children": [
+            { "title": "P0 grant/revoke flows — automate as regression candidates" },
+            { "title": "Seat count integrity check — automate with DB assertion" },
+            { "title": "State transitions — automate state machine coverage" },
+            { "title": "UI disabled button state — automate client profile checks" }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Test Data Preparation",
+      "children": [
+        {
+          "title": "WS Plan Variants",
+          "children": [
+            { "title": "Pro plan WS (standard)" },
+            { "title": "Studio plan WS" },
+            { "title": "Accelerator Bundle WS" },
+            { "title": "Starter plan WS (ineligible)" },
+            { "title": "Free Trial WS (ineligible)" },
+            { "title": "White-label WS on paid plan (grant eligible, email suppressed)" }
+          ]
+        },
+        {
+          "title": "Coach Role Variants",
+          "children": [
+            { "title": "Owner (eligible)" },
+            { "title": "Admin (eligible)" },
+            { "title": "Trainer (eligible, same as Owner/Admin)" },
+            { "title": "Admin → Trainer role change (no revocation)" },
+            { "title": "Coach in pending state → transition to active" },
+            { "title": "Coach removed from WS (revocation trigger)" }
+          ]
+        },
+        {
+          "title": "Client State Variants",
+          "children": [
+            { "title": "Connected client (email matches active Owner/Admin/Trainer)" },
+            { "title": "Archived client with matching email (QA-internal: no grant/revoke)" },
+            { "title": "Pending client with matching email → transition to connected" },
+            { "title": "Client with non-matching email" },
+            { "title": "Client who is also Owner of WS (same email)" },
+            { "title": "Client who is also Trainer in WS" },
+            { "title": "Client who is also Admin in WS" }
+          ]
+        },
+        {
+          "title": "MS Subscription States",
+          "children": [
+            { "title": "WS with active MS subscription (button disabled state)" },
+            { "title": "WS with cancelled MS subscription (button hidden state)" },
+            { "title": "WS without MS subscription (no button; perk callout)" }
+          ]
+        },
+        {
+          "title": "Pre-release Migration Data",
+          "children": [
+            { "title": "Coach WITHOUT MS plan; connected client with matching email" },
+            { "title": "Coach WITH MS plan; connected client assigned regular MS (pre-release)" },
+            { "title": "Coach WITH MS plan; connected client had regular MS manually un-assigned (pre-release, must remain unassigned)" },
+            { "title": "Dual-license: client assigned via MS management, then added as teammate (same email)" },
+            { "title": "Archived client (Owner/Trainer/Admin) with matching email" },
+            { "title": "Pending client (Owner/Trainer/Admin) with matching email" },
+            { "title": "Connected client (Owner/Trainer/Admin) — all 3 role variants" }
+          ]
+        },
+        {
+          "title": "Email Data",
+          "children": [
+            { "title": "Standard WS accounts before deployment (retroactive email expected)" },
+            { "title": "WL WS accounts before deployment (retroactive grant expected; no email)" },
+            { "title": "Accounts created after deployment (no email expected)" },
+            { "title": "Mixed-case email variants for case-sensitivity boundary testing" }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Test Environments & Tools",
+      "children": [
+        {
+          "title": "Environments",
+          "children": [
+            { "title": "Staging — primary test environment" },
+            { "title": "Production data scan — pre-migration read-only analysis" },
+            { "title": "White-label WS instance — WL grant + email suppression verification" }
+          ]
+        },
+        {
+          "title": "Tools",
+          "children": [
+            { "title": "Jira — PAY-2556, PAY-2557 traceability" },
+            { "title": "Postman / API client — direct grant/revoke API verification" },
+            { "title": "DB query tools — seat count and license state verification" },
+            { "title": "Email testing tool (Mailtrap or equivalent) — email notification + WL suppression" },
+            { "title": "Playwright — automation for P0 regression flows" }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Exit Criteria",
+      "children": [
+        {
+          "title": "Functional Exit Criteria",
+          "children": [
+            { "title": "All P0 scenarios pass: grant, revoke, seat count, management page, disabled UI button, WL email suppression, manual-unassign preservation" },
+            { "title": "Dual-license reconciliation (BR-13) verified: regular license counted → unassign → complementary access retained" },
+            { "title": "All 5 user concerns have confirmed expected behavior and test results, including Trainer eligibility and manual-unassign preservation" },
+            { "title": "Migration job tested against all data permutations with correct outcomes" },
+            { "title": "QA-internal archive state verification completed: no unintended revoke/re-grant on archive" },
+            { "title": "No P0 or P1 open bugs at release; P2 bugs documented and accepted" }
+          ]
+        },
+        {
+          "title": "Non-functional Exit Criteria",
+          "children": [
+            { "title": "Migration job completes without data corruption on staging" },
+            { "title": "Seat count consistent before/after migration" },
+            { "title": "No race condition failures on concurrent plan change + migration" },
+            { "title": "Email deduplication verified: no double-send on migration retry" }
+          ]
+        },
+        {
+          "title": "Documentation Exit Criteria",
+          "children": [
+            { "title": "HANDOFF.md updated with session status and open items" },
+            { "title": "TEST_MATRIX.md updated with coverage per module" },
+            { "title": "All blocking clarifications resolved and documented" },
+            { "title": "Migration test matrix documented and signed off" }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Deliverables",
+      "children": [
+        { "title": "high-level-strategy-analysis.md — v2 finalized strategy upstream input" },
+        { "title": "ms-free-access-test-strategy.xmind — v2 visual strategy map" },
+        { "title": "TEST_MATRIX.md — module coverage tracking" },
+        { "title": "HANDOFF.md — session continuity document" },
+        { "title": "Migration test matrix — data permutation expected outcomes" },
+        { "title": "Detailed test cases (via qa-master-workflow pipeline)" }
+      ]
+    }
+  ]
+}

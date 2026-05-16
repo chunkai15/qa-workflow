@@ -1,6 +1,6 @@
 # Agent Operating Model — QA Harness
 
-> Version: 2.0 | Updated: 2026-05-10
+> Version: 3.0 | Updated: 2026-05-16
 > This is the single source of truth for how agents execute work in this repository.
 > Humans steer. Agents execute. Do not rely on chat history.
 
@@ -112,26 +112,28 @@ If the input is a Jira epic key (e.g., `PAY-xxx`), run `@jira-epic-story-snapsho
 ### Step-by-Step Execution
 
 **Step 1 — Size Assessment (before any work):**
-Count ACs and modules to select Session Mode:
+Count ACs first. >20 ACs → MANDATORY Epic split (≤15 ACs/Epic) before pipeline starts.
 
 | Mode | ACs | Sessions | When to use |
 |---|---|---|---|
 | **MODE S** | ≤5 ACs, ≤3 LOW/MED modules | 1 | Hotfix, small UI change |
 | **MODE M** | 6–15 ACs, up to HIGH risk | 3–4 | Standard feature |
-| **MODE L** | 16–40 ACs | 5–7 | Large feature |
-| **MODE XL** | >40 ACs | Split into Epics first | Complex epic |
+| **MODE L** | 16–20 ACs | 5–7 | Large feature |
+| **MODE XL** | >20 ACs | Split into Epics first | Complex epic |
 
 **Step 2 — Run the pipeline per Mode (see `@qa-master-workflow` for session split details)**
 
 **Step 3 — Save outputs to project folder:**
 ```
 projects/{squad}/{project}/
-  analysis.md          ← Layers 1–3 output
+  analysis.md           ← Layers 1–3 output (create + append per session)
+  regression-suite.md   ← Layer 4 output
   test-cases/
-    regression-suite.md
     test-cases.md
     {feature}-test-cases.xlsx  (optional)
 ```
+
+**Response Discipline (all layers):** Analysis content → write to file silently. Chat output → compact summary at gate stops only (≤8 lines). See each skill's `⚡ Response Discipline` section.
 
 **Step 4 — Update harness:**
 - `TEST_MATRIX.md`: change all tested ACs from `not-covered` → `tc-written`
@@ -140,18 +142,22 @@ projects/{squad}/{project}/
 
 ### Review Gates (Human approval required)
 
-| Gate | After | QA must do |
-|---|---|---|
-| Gate 1a | Ambiguity Scan | Answer all critical questions |
-| Gate 1b | Master Context | Approve before Layer 2 starts |
-| Gate 2a | Strategy proposal | Choose 1 of 2–3 strategies |
-| Gate 2b | Module structure | Approve or revise |
-| Gate 2c | Risk Register | Approve |
-| Gate 3 | GAP Analysis | Address gaps and approve |
-| Gate 4A | Regression tier assignment | Approve tier list |
-| Gate 4B | BDD Gherkin | Approve or skip |
-| Gate 5 | Per AC (inline) | Auto-pass or fix |
-| Gate Module | Per module | Approve TCs |
+All gate stops log **compact summaries to chat only** (≤8 lines). Full content is in the output files.
+
+| Gate | After | Chat output | QA must do |
+|---|---|---|---|
+| Scope Gate | L1 startup | Split request if >20 ACs | Confirm Epic split |
+| Gate 1a | Ambiguity Scan | Critical questions only | Answer to unblock |
+| Gate 1b | Master Context | 4-line stats → analysis.md | Approve |
+| Gate 2a | Strategy proposal | 2 strategy options | Choose one |
+| Gate 2b | Module structure | Module names → analysis.md | Approve or revise |
+| Gate 2c | Risk Register | Risk/TC counts → analysis.md | Approve |
+| Gate 3a | Technique Validation | Adjustments proposed | Approve additions |
+| Gate 3b | Deep Analysis Package | 4-line stats → analysis.md | Approve |
+| Gate 4A | Regression tier assignment | Tier counts → regression-suite.md | Approve |
+| Gate 4B | BDD Gherkin | Gherkin count (if BDD) | Approve or skip |
+| Gate 5 v2 | Per AC (inline, 6-part) | 1 line per AC | Auto-pass or fix |
+| Gate Module | Per module | Compact summary | Approve TCs |
 
 ---
 
@@ -397,7 +403,7 @@ A task is done ONLY when ALL of the following are true:
 | `@qa-strategy-decomposer` | Layer 2: decompose into modules + risk register |
 | `@qa-deep-analyzer` | Layer 3: deep reading per AC + dependency map |
 | `@qa-scenario-designer` | Layer 4: regression suite + BDD Gherkin |
-| `@qa-testcase-generator` | Layer 5: 9-column TC tables |
+| `@qa-testcase-generator` | Layer 5: 9-column TC tables → test-cases/test-cases.md |
 | `@qa-bug-report-generator` | Bug reports → Jira tickets |
 | `@jira-calendar-daily-report` | DSU daily activity report + worklog draft |
 | `@jira-epic-story-snapshot` | Snapshot a Jira epic → reusable markdown |

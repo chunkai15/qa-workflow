@@ -56,6 +56,11 @@ qa-workflow/
 - Don't silently resolve ambiguity — surface it in HANDOFF.md.
 - Don't overwrite previous automation runs — create new run folders under `automation/runs/`.
 - **Harness Friction:** If stuck or confused, log it in `docs/HARNESS_BACKLOG.md`.
+- **TEST_MATRIX.md** MUST have real AC rows before any test work begins. If stub → populate first.
+- **_dashboard.md** MUST be updated whenever a project phase changes.
+- **HANDOFF.md** MUST be updated at the END of every session, not beginning of next.
+- Decisions with cross-project impact → log to `docs/decisions/ADR-XXX.md`, not just HANDOFF.
+- `.agents/workflows/wf-N-init.md` → load at workflow start for exact execution prompt.
 
 ## References
 

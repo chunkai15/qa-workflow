@@ -8,7 +8,9 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "pipeline": "ts-node run-pipeline.ts",
-    "verify:generated": "tsc --noEmit --project tsconfig.generated.json"
+    "verify:generated": "tsc --noEmit --project tsconfig.generated.json",
+    "validate:tc": "npx markdownlint 'projects/**/*.md'",
+    "validate:bdd": "npx gherkin-lint 'projects/**/automation/input/*.feature'"
   },
   "keywords": [],
   "author": "",

@@ -1,5 +1,5 @@
 ---
-last_updated: "2026-05-06"
+last_updated: "2026-05-16 (E2 complete)"
 updated_by: "claude"
 ---
 
@@ -12,7 +12,7 @@ updated_by: "claude"
 | Squad | Active Projects | Focus |
 |---|---|---|
 | **marketplace** | 3 | Search, onboarding survey, birthdate |
-| **payment** | 4 | Marketplace login, session credits, billing A/B test |
+| **payment** | 5 | Marketplace login, session credits, billing A/B test, package issuance |
 
 ## All Projects — Status
 
@@ -24,6 +24,7 @@ updated_by: "claude"
 | payment | `marketplace-login` | analyzing | high | 70% | Expand test cases |
 | payment | `session-credit-p1.0` | spec-ready | high | 30% | Create analysis.md, QA structure |
 | payment | `session-credit-p1.1` | analysis-done | high | 60% | Generate test cases from analysis |
+| payment | `Package Issuance (P3.1)` | analyzing | high | 52% | Run E3 QA pipeline (US3 + US4 AC0.1–AC9 — Mode L) |
 | payment | `billing-ab-test` | testcase-ready | high | 90% | Execute Tier 0 on first build; resolve 3 open Dev clarifications |
 
 ## Currently In Progress
@@ -32,6 +33,7 @@ updated_by: "claude"
 
 | Project | Current Task | Last Agent | Last Updated |
 |---|---|---|---|
+| `payment/Package Issuance (P3.1)` | E1+E2 complete (260 TCs total). E3 next: US3 + US4 AC0.1–AC9 (Mode L, 20 ACs) | claude | 2026-05-16 |
 | `payment/session-credit-p1.1` | Needs test case generation | claude | 2026-05-05 |
 | `payment/marketplace-login` | Test cases minimal, needs expansion | claude | 2026-05-05 |
 | `payment/billing-ab-test` | Full pipeline done — ready for test execution | claude | 2026-05-06 |

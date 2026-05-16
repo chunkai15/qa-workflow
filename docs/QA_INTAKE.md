@@ -50,7 +50,17 @@ Mark one flag for each item that applies to the feature/change:
 | **Broad UI** | Cross-platform logic (mobile/web parity), core reused components |
 | **Weak Spec** | Missing ACs, undefined edge cases, heavy assumptions required |
 
-## 3. Risk Lanes & Session Modes
+## 3. AC Count Gate (MANDATORY — run before lane assignment)
+
+```
+Count total ACs in scope.
+  ≤20 ACs → proceed to lane assignment below.
+  >20 ACs → STOP: Epic split required (≤15 ACs per Epic).
+             Each Epic runs as an independent WF-1 pipeline.
+             Merge regression suites at the end.
+```
+
+## 4. Risk Lanes & Session Modes
 
 Based on the AC count and Risk Flags, determine the lane and the specific Session Mode for `@qa-master-workflow`.
 
